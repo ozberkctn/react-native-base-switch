@@ -15,6 +15,7 @@ class Switch extends React.Component {
       Math.min(this.props.switchHeight, this.props.buttonRadius * 2);
     this.state = {
       width: w,
+      state: this.props.active,
       position: new Animated.Value(this.props.active ? w : 0)
     };
     this.start = {};
