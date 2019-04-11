@@ -4,7 +4,8 @@ import {
   View,
   TouchableHighlight,
   Animated,
-  Text
+  Text,
+  I18nManager
 } from "react-native";
 
 class Switch extends React.Component {
@@ -16,7 +17,15 @@ class Switch extends React.Component {
     this.state = {
       width: w,
       state: this.props.active,
-      position: new Animated.Value(this.props.active ? w : 0)
+      position: new Animated.Value(
+        this.props.active
+          ? I18nManager.isRTL
+            ? 0
+            : w
+          : I18nManager.isRTL
+          ? w
+          : 0
+      )
     };
     this.start = {};
   }
@@ -132,7 +141,7 @@ class Switch extends React.Component {
 
   activate = () => {
     Animated.timing(this.state.position, {
-      toValue: this.state.width,
+      toValue: I18nManager.isRTL ? 0 : this.state.width,
       duration: this.props.switchAnimationTime
     }).start();
     this.changeState(true);
@@ -140,7 +149,7 @@ class Switch extends React.Component {
 
   deactivate = () => {
     Animated.timing(this.state.position, {
-      toValue: 0,
+      toValue: I18nManager.isRTL ? -this.state.width : 0,
       duration: this.props.switchAnimationTime
     }).start();
     this.changeState(false);
