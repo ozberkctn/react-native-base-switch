@@ -5,7 +5,8 @@ import {
   TouchableHighlight,
   Animated,
   Text,
-  I18nManager
+  I18nManager,
+  Platform
 } from "react-native";
 
 class Switch extends React.Component {
@@ -23,7 +24,9 @@ class Switch extends React.Component {
             ? 0
             : w
           : I18nManager.isRTL
-          ? w
+          ? Platform.OS == "ios"
+            ? 0
+            : -w
           : 0
       )
     };
